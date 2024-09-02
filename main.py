@@ -47,14 +47,6 @@ class Bird(pygame.sprite.Sprite):
         self.player_input()
         self.apply_gravity()
 
-# class Base(pygame.sprite.Sprite):
-#     def __init__(self):
-#         super().__init__()
-#         self.image = pygame.image.load('graphics/base.png').convert()
-#         self.rect = self.image.get_rect(midbottom = (0,400))
-
-#     def animation_state(self):
-
 # def collision_check():
 #     if pygame.Rect.colliderect(bird.sprite, )
 
@@ -69,6 +61,8 @@ pygame.display.set_icon(icon)
 
 bg_surf = pygame.image.load('graphics/background-day.png').convert()
 base_surf = pygame.image.load('graphics/base.png').convert()
+base_width = 288
+base_i = 0
 
 # Groups
 bird = pygame.sprite.GroupSingle()
@@ -92,8 +86,15 @@ while True:
                 game_active = True
     
     screen.blit(bg_surf,(0,0))
-    screen.blit(base_surf,(0,400))
-    
+
+    # Loop base_surf forever
+    screen.blit(base_surf,(base_i,400))
+    screen.blit(base_surf,(base_width+base_i,400))
+    if base_i == -base_width:
+        screen.blit(base_surf,(base_width+base_i,400))
+        base_i = 0
+    base_i -= 1
+
     if game_active:
         bird.draw(screen)
         bird.update()
